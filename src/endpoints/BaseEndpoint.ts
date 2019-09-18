@@ -34,6 +34,7 @@ export default class BaseEndpoint {
    * @param payload The optional payload to deliver to the API.
    */
   async performRequest (method: 'get' | 'GET' | 'put' | 'PUT' | 'post' | 'POST' | 'delete' | 'DELETE', endpoint: string, queryParams?: Object) {
+    console.log(`requestUrl = ${this.baseUrl}${endpoint}`)
     const res = await axios({
       url: `${this.baseUrl}${endpoint}`,
       params: queryParams,
