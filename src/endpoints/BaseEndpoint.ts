@@ -35,7 +35,7 @@ export default class BaseEndpoint {
    */
   async performRequest (method: 'get' | 'GET' | 'put' | 'PUT' | 'post' | 'POST' | 'delete' | 'DELETE', endpoint: string, queryParams?: Object) {
     const res = await axios({
-      url: `${this.baseUrl}/${endpoint}`,
+      url: `${this.baseUrl}${endpoint}`,
       params: queryParams,
       headers: this.headers,
       method: method
