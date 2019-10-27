@@ -110,7 +110,7 @@ export default class Boards extends BaseEndpoint {
   }
 }
 
-declare class Board {
+declare interface Board {
   /** The unique identifier for the board. */
   id: string;
 
