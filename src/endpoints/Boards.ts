@@ -159,3 +159,12 @@ declare interface Board {
    */
   memberships: Object[];
 }
+
+declare interface BoardStar {
+  id: string;
+  boardStars: [{
+    _id: string;
+    idBoard: string;
+    pos: number;
+  }]
+}
