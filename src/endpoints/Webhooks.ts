@@ -22,7 +22,7 @@ export default class Webhooks extends BaseEndpoint {
   }
 }
 
-declare class Webhook {
+declare interface Webhook {
   /** The ID of the webhook. */
   id: string;
 

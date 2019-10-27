@@ -110,7 +110,7 @@ export default class Boards extends BaseEndpoint {
   }
 }
 
-declare class Board {
+declare interface Board {
   /** The unique identifier for the board. */
   id: string;
 
@@ -158,4 +158,13 @@ declare class Board {
    * https://developers.trello.com/reference-link/boardsidmemberships
    */
   memberships: Object[];
+}
+
+declare interface BoardStar {
+  id: string;
+  boardStars: [{
+    _id: string;
+    idBoard: string;
+    pos: number;
+  }]
 }
