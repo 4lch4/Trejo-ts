@@ -15,8 +15,11 @@ export default class Members extends BaseEndpoint {
 
   async getBoardByName (name: string, id = 'me', fields = 'name,url'): Promise<Board | undefined> {
     const res = await this.performRequest('GET', `/members/${id}/boards?fields=${fields}`);
+    
+    if (this.includeHeaders) var data = res.data
+    else data = res
 
-    for (const board of res.data) {
+    for (const board of data) {
       if (board.name === name) return board;
     }
 
