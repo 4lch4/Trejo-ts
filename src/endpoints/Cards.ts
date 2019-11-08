@@ -1,4 +1,4 @@
-import { Action, Attachment, Board, Card, CardFields, Card_CREATE, Card_UPDATE, CheckItem, CheckItem_UPDATE, Checklist, CustomField, List, Member, Sticker, Sticker_UPDATE } from '../utils/shared';
+import { Action, Attachment, Attachment_CARD_CREATE, Board, Card, CardFields, Card_CREATE, Card_UPDATE, CheckItem, CheckItem_UPDATE, Checklist, Checklist_CREATE, CustomField, Label, List, Member, Sticker, Sticker_CREATE, Sticker_UPDATE } from '../utils/shared';
 import BaseEndpoint from './BaseEndpoint';
 
 export default class Cards extends BaseEndpoint {
@@ -79,22 +79,94 @@ export default class Cards extends BaseEndpoint {
   }
 
   async updateCardChecklistCheckItem(cardId: string, checklistId: string, checkItemId: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
-    return this.performRequest('PUT', `/cards/${cardId}/checklist/${checklistId}/checkItem/${checkItemId}`, queryParams);)
+    return this.performRequest('PUT', `/cards/${cardId}/checklist/${checklistId}/checkItem/${checkItemId}`, queryParams);
   }
   
   async updateCardSticker(cardId: string, stickerId: string, stickerUpdate: Sticker_UPDATE): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('PUT', `/cards/${cardId}/stickers/${stickerId}`, stickerUpdate);
   }
   
-  async createCard (newCard: Card_CREATE) {
-    return this.performRequest('POST', `/cards`, newCard)
+  async createCard (newCard: Card_CREATE, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards`, { ...newCard, ...queryParams })
   }
 
   async addCardActionComment(id: string, comment: string, queryParams: Object): Promise<Action | { data: Action, headers: Object }> {
-    return this.performRequest('POST', `/cards/${id}/actions/comments`, { text: comment });
+    return this.performRequest('POST', `/cards/${id}/actions/comments`, { text: comment, ...queryParams });
   }
 
-  async addCardAttachment(id: string, attachment: Attachment): Promise<Card | { data: Card, headers: Object }> {
-    return this.performRequest('POST', `/cards/${id}/attachments`, attachment);
+  /**
+   * _NOTE: Cards have a max of 100 attachments. If you try to add one more,_
+   * _you'll get a `422 unprocessable entity` error._
+   * 
+   * @param id The ID of the card.
+   * @param attachment The object containing the attachment data.
+   * @param queryParams Any further query parameters you wish to add.
+   */
+  async addCardAttachment(id: string, attachment: Attachment_CARD_CREATE, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards/${id}/attachments`, { ...attachment, ...queryParams });
+  }
+
+  async addCardChecklist(id: string, newChecklist: Checklist_CREATE, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards/${id}/checklists`, { ...newChecklist, ...queryParams });
+  }
+
+  async addCardExistingLabel(cardId: string, labelId: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards/${cardId}/idLabels`, { value: labelId, ...queryParams });
+  }
+
+  async addCardMember(cardId: string, memberId: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards/${cardId}/idMembers`, { value: memberId, ...queryParams });
+  }
+
+  async addNewCardLabel(id: string, label: Label, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards/${id}/labels`, { ...label, ...queryParams });
+  }
+
+  async markCardNotificationsRead(id: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards/${id}/markAssociatedNotificationsRead`, queryParams);
+  }
+
+  async voteOnCard(cardId: string, memberId: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards/${cardId}`, { value: memberId, ...queryParams });
+  }
+
+  async addCardSticker(id: string, sticker: Sticker_CREATE, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('POST', `/cards/${id}/stickers`, { ...sticker, ...queryParams });
+  }
+
+  async deleteCard(id: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${id}`);
+  }
+
+  async deleteCardActionComment(cardId: string, actionId: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${cardId}/actions/${actionId}/comments`);
+  }
+
+  async deleteCardAttachment(cardId: string, attachmentId: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${cardId}/attachments/${attachmentId}`);
+  }
+
+  async deleteCardCheckItem(cardId: string, checkItemId: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${cardId}/checkItem/${checkItemId}`)
+  }
+
+  async deleteCardChecklist(cardId: string, checklistId: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${cardId}/checklists/${checklistId}`);
+  }
+
+  async deleteCardLabel(cardId: string, labelId: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${cardId}/idLabels/${labelId}`);
+  }
+
+  async deleteCardMember(cardId: string, memberId: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${cardId}/idMembers/${memberId}`);
+  }
+
+  async deleteCardMemberVote(cardId: string, memberId: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${cardId}/membersVoted/${memberId}`);
+  }
+
+  async deleteCardSticker(cardId: string, stickerId: string): Promise<Card | { data: Card, headers: Object }> {
+    return this.performRequest('DELETE', `/cards/${cardId}/stickers/${stickerId}`);
   }
 }

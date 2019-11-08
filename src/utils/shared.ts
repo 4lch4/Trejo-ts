@@ -30,6 +30,23 @@ export interface Attachment {
 	pos: number;
 }
 
+/**
+ * An interface for when a new Attachment is "attached" to a Card for example.
+ */
+export interface Attachment_CARD_CREATE {
+  /** The name of the attachment. Max length 256. */
+  name?: string;
+
+  /** The file to attach, as multipart/form-data. */
+  file?: File;
+
+  /** The mimeType of the attachment. Max length 256. */
+  mimeType?: string;
+
+  /** A URL to attach. Must start with `http://` or `https://`. */
+  url?: string;
+}
+
 export interface Badge {
   votes: number;
   viewingMemberVoted: boolean;
@@ -551,6 +568,20 @@ export interface Checklist {
   pos: number;
 }
 
+export interface Checklist_CREATE {
+  /** The name of the checklist. */
+  name?: string;
+
+  /** The ID of a source checklist to copy into the new one. */
+  idChecklistSource?: string;
+
+  /** 
+   * The position of the checklist on the card (relative to any other checklists
+   * on the card).
+   */
+  pos?: number;
+}
+
 export interface CustomField {
   /** The ID of the Custom Field definition. */
   id: string;
@@ -627,6 +658,17 @@ export interface Label {
 
   /** The optional name of the label (0 - 16384 chars). */
   name: string;
+
+  /** 
+   * The color of the label. Null means no color and the label will not show on
+   * the front of cards.
+   */
+  color: Color;
+}
+
+export interface Label_CARD_CREATE {
+  /** The optional name of the label (0 - 16384 chars). */
+  name?: string;
 
   /** 
    * The color of the label. Null means no color and the label will not show on
@@ -1012,6 +1054,72 @@ export interface Sticker {
 	image: string;
 	imageUrl: string;
 	imageScaled: ImageScaled[];
+}
+
+export enum Sticker_DEFAULTS {
+  CHECK = 'check',
+  HEART = 'heart',
+  WARNING = 'warning',
+  CLOCK = 'clock',
+  SMILE = 'smile',
+  LAUGH = 'laugh',
+  HUH = 'huh',
+  FROWN = 'frown',
+  THUMBSUP = 'thumbsup',
+  THUMBSDOWN = 'thumbsdown',
+  STAR = 'star',
+  ROCKETSHIP = 'rocketship',
+  TACO_LOVE = 'taco-love',
+  TACO_CONFUSED = 'taco-confused',
+  TACO_COOL = 'taco-cool',
+  TACO_ANGRY = 'taco-angry',
+  TACO_CELEBRATE = 'taco-celebrate',
+  TACO_ROBOT = 'taco-robot',
+  TACO_ALERT = 'taco-alert',
+  TACO_ACTIVE = 'taco-active',
+  TACO_MONEY = 'taco-money',
+  TACO_READING = 'taco-reading',
+  TACO_TROPHY = 'taco-trophy',
+  TACO_SLEEPING = 'taco-sleeping',
+  TACO_PIXEL = 'taco-pixel',
+  TACO_PROTO = 'taco-proto',
+  TACO_EMBARRASSED = 'taco-embarrassed',
+  TACO_CLEAN = 'taco-clean',
+  PETE_HAPPY = 'pete-happy',
+  PETE_LOVE = 'pete-love',
+  PETE_BROKEN = 'pete-broken',
+  PETE_ALERT = 'pete-alert',
+  PETE_TALK = 'pete-talk',
+  PETE_VACATION = 'pete-vacation',
+  PETE_CONFUSED = 'pete-confused',
+  PETE_SHIPPED = 'pete-shipped',
+  PETE_BUSY = 'pete-busy',
+  PETE_COMPLETED = 'pete-completed',
+  PETE_SPACE = 'pete-space',
+  PETE_SKETCH = 'pete-sketch',
+  PETE_GHOST = 'pete-ghost',
+  PETE_AWARD = 'pete-award',
+  PETE_MUSIC = 'pete-music'
+}
+
+export interface Sticker_CREATE {
+  /**
+   * For custom stickers, the id of the sticker. For default stickers, the
+   * string identifier (like 'taco-cool').
+   */
+  image: Sticker_DEFAULTS | string;
+
+  /** The top position of the sticker, from -60 to 100. */
+  top: number;
+
+  /** The top position of the sticker, from -60 to 100. */
+  left: number;
+
+  /** The z-index of the sticker. */
+  zIndex: number;
+
+  /** The rotation of the sticker. */
+  rotate?: number;
 }
 
 export interface Sticker_UPDATE {
@@ -1615,7 +1723,7 @@ export interface ReactionNestedQuery {
 // #endregion Nested Resource Models
 
 // #region Enums
-export declare enum ActionType {
+export enum ActionType {
   acceptEnterpriseJoinRequest,
   addAttachmentToCard,
   addChecklistToCard,
@@ -1688,7 +1796,7 @@ export declare enum ActionType {
 }
 
 /** The names of the fields that a Action object can contain. */
-export declare enum ActionFields {
+export enum ActionFields {
   id,
   data,
   date,
@@ -1697,7 +1805,7 @@ export declare enum ActionFields {
 }
 
 /** The names of the fields that a Board object can contain. */
-export declare enum BoardFields {
+export enum BoardFields {
   id,
   name,
   desc,
@@ -1715,7 +1823,7 @@ export declare enum BoardFields {
 }
 
 /** The names of the fields that a Card object can contain. */
-export declare enum CardFields {
+export enum CardFields {
   id,
   badges,
   checkItemStates,
@@ -1747,7 +1855,7 @@ export declare enum CardFields {
 }
 
 /** The names of the fields that a CustomField object can contain. */
-export declare enum CustomFieldFields {
+export enum CustomFieldFields {
   id,
   idModel,
   modelType,
@@ -1760,7 +1868,7 @@ export declare enum CustomFieldFields {
 }
 
 /** The names of the fields that a Label object can contain. */
-export declare enum LabelFields {
+export enum LabelFields {
   id,
   idBoard,
   name,
@@ -1768,7 +1876,7 @@ export declare enum LabelFields {
 }
 
 /** The names of the fields that a List object can contain. */
-export declare enum ListFields {
+export enum ListFields {
   id,
   name,
   closed,
@@ -1779,7 +1887,7 @@ export declare enum ListFields {
 }
 
 /** The names of the fields that a Member object can contain. */
-export declare enum MemberFields {
+export enum MemberFields {
   /** The ID of the member. */
   id,
 
@@ -1885,7 +1993,7 @@ export declare enum MemberFields {
 }
 
 /** The names of the fields that a Notification object can contain. */
-export declare enum NotificationFields {
+export enum NotificationFields {
   id,
   data,
   date,
@@ -1895,7 +2003,7 @@ export declare enum NotificationFields {
 }
 
 /** The names of the fields that a Organization object can contain. */
-export declare enum OrganizationFields {
+export enum OrganizationFields {
   id,
   billableMemberCount,
   desc,
@@ -1916,7 +2024,7 @@ export declare enum OrganizationFields {
 }
 
 /** The names of the fields that a Webhook object can contain. */
-export declare enum WebhookFields {
+export enum WebhookFields {
   id,
   description,
   idModel,
@@ -1924,13 +2032,13 @@ export declare enum WebhookFields {
   active
 }
 
-export declare enum AvatarSource {
+export enum AvatarSource {
   UPLOAD = 'upload',
   GRAVATAR = 'gravatar'
 }
 
 /** The names of the fields that a Checklist object can contain. */
-export declare enum ChecklistFields {
+export enum ChecklistFields {
   id,
   idBoard,
   idCard,
@@ -1938,7 +2046,7 @@ export declare enum ChecklistFields {
   pos
 }
 
-export declare enum Color {
+export enum Color {
   YELLOW = 'yellow',
   PURPLE = 'purple',
   BLUE = 'blue',
@@ -1952,29 +2060,29 @@ export declare enum Color {
   NULL = 'null'
 }
 
-export declare enum CustomFieldType {
+export enum CustomFieldType {
   NUMBER = 'number', DATE = 'date',
   TEXT = 'text', CHECKBOX = 'checkbox',
   LIST = 'list'
 }
 
-export declare enum NestedListType {
+export enum NestedListType {
   ALL = 'all', CLOSED = 'closed', NONE = 'none', OPEN = 'open'
 }
 
-export declare enum LoginType {
+export enum LoginType {
   PASSWORD = 'password', SAML = 'saml',
   GOOGLE = 'google', ANDROID = 'android'
 }
 
-export declare enum MemberType {
+export enum MemberType {
   ADMIN = 'admin',
   OBSERVER = 'observer',
   NORMAL = 'normal',
   GHOST = 'ghost'
 }
 
-export declare enum NestedMemberType {
+export enum NestedMemberType {
   NONE = 'none',
   NORMAL = 'normal',
   ADMINS = 'admins',
