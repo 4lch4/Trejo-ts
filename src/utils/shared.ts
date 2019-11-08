@@ -1,5 +1,5 @@
 // #region Standard Models
-export declare class Action {
+export interface Action {
   /** The ID of the action. */
   id: string;
 
@@ -16,7 +16,21 @@ export declare class Action {
   type: ActionType;
 }
 
-export declare class Badge {
+export interface Attachment {
+	id: string;
+	bytes: number;
+	date: string;
+	edgeColor: string;
+	idMember: string;
+	isUpload: boolean;
+	mimeType?: any;
+	name: string;
+	previews: Preview[];
+	url: string;
+	pos: number;
+}
+
+export interface Badge {
   votes: number;
   viewingMemberVoted: boolean;
   subscribed: boolean;
@@ -30,7 +44,7 @@ export declare class Badge {
   dueComplete: false;
 }
 
-export declare class Board {
+export interface Board {
   /** The unique identifier for the board. */
   id: string;
 
@@ -80,7 +94,7 @@ export declare class Board {
   memberships: Object[];
 }
 
-export declare class Board_CREATE {
+export interface Board_CREATE {
   /** The new name for the board. 1 - 16,384 characters long. */
   name: string;
 
@@ -201,7 +215,7 @@ export declare class Board_CREATE {
   prefs_cardAging?: string;
 }
 
-export declare class Board_UPDATE {
+export interface Board_UPDATE {
   /** The new name for the board. 1 - 16,384 characters long. */
   name?: string;
   
@@ -275,20 +289,20 @@ export declare class Board_UPDATE {
   "labelNames/blue"?: string;
 }
 
-export declare class BoardPlugin {
+export interface BoardPlugin {
   id: string;
   name: string;
   public: boolean;
   url: string;
 }
 
-export declare class BoardPowerUp {
+export interface BoardPowerUp {
   id: string;
   idBoard: string;
   idPlugin: string;
 }
 
-export declare class Card {
+export interface Card {
   /** The unique identifier of the card. */
   id: string;
 
@@ -397,7 +411,105 @@ export declare class Card {
   coordinates: Object;
 }
 
-export declare class CheckItem {
+export interface Card_CREATE {
+  /** The name for the card. */
+  name: string;
+
+  /** The description for the card. */
+  desc: string;
+
+  /** The position of the new card. `top`, `bottom`, or a positive float. */
+  pos: string;
+
+  /** A due date for the card. */
+  due: string;
+
+  /** Whether or not the due date has been reached. */
+  dueComplete: boolean;
+
+  /** The ID of the list the card should be created in. */
+  idList: string;
+
+  /** Comma-separated list of member IDs to add to the card. */
+  idMembers: string;
+
+  /** Comma-separated list of label IDs to add to the card. */
+  idLabels: string;
+
+  /** A URL starting with `http://` or `https://`. */
+  urlSource: string;
+
+  /** Not sure what this does... */
+  fileSource: string;
+
+  /** The ID of a card to copy into the new card. */
+  idCardSource: string;
+
+  /**
+   * if using `idCardSource` you can specify which properties to copy over.
+   * `all` or comma-separated list of: `attachments,checklists,comments,due,
+   * labels,members,stickers`.
+   */
+  keepFromSource: string;
+
+  /** For use with/by the Map Power-Up. */
+  address: string;
+
+  /** For use with/by the Map Power-Up. */
+  locationName: string;
+
+  /** For use with/by the Map Power-Up. In form of `latitude,longitude`. */
+  coordinates: string;
+}
+
+export interface Card_UPDATE {
+  /** The new name for the card. */
+  name?: string;
+
+  /** The new description for the card. */
+  desc?: string;
+
+  /** Whether the card should be archived (closed: true). */
+  closed?: boolean;
+
+  /** Comma-separated list of member IDs. */
+  idMembers?: string;
+
+  /** The ID of the image attachment the card should use as its cover. Or null for none. */
+  idAttachmentCover?: string;
+
+  /** The ID of the list the card should be in. */
+  idList?: string;
+
+  /** Comma-separated list of label IDs. */
+  idLabels?: string;
+
+  /** The ID of the board the card should be on. */
+  idBoard?: string;
+
+  /** The position of the card in its list. `top`, `bottom`, or a positive float. */
+  pos?: string;
+
+  /** When the card is due, or `null`. */
+  due?: string;
+
+  /** Whether the due date should be marked complete. */
+  dueComplete?: boolean;
+
+  /** Whether the active member should be subscribed to the card. */
+  subscribed?: boolean;
+
+  /** For use with/by the Map Power-Up. */
+  address?: string;
+
+  /** For use with/by the Map Power-Up. */
+  locationName?: string;
+
+  /** For use with/by the Map Power-Up. Should be `latitude,longitude`. */
+  coordinates?: string;
+}
+
+export interface CheckItem {
   id: string;
   state: string;
   name: string;
@@ -405,7 +517,7 @@ export declare class CheckItem {
   pos: string;
 }
 
-export declare class CheckItem_UPDATE {
+export interface CheckItem_UPDATE {
   /** The new name for the checklist item. */
   name?: string;
 
@@ -419,7 +531,7 @@ export declare class CheckItem_UPDATE {
   pos?: string;
 }
 
-export declare class Checklist {
+export interface Checklist {
   /** The ID of the checklist. */
   id: string;
 
@@ -439,7 +551,7 @@ export declare class Checklist {
   pos: number;
 }
 
-export declare class CustomField {
+export interface CustomField {
   /** The ID of the Custom Field definition. */
   id: string;
 
@@ -490,7 +602,7 @@ export declare class CustomField {
   display: Object;
 }
 
-export declare class Emoji {
+export interface Emoji {
   unified: string;
   native: Object;
   name: string;
@@ -498,7 +610,15 @@ export declare class Emoji {
   shortName: string;
 }
 
-export declare class Label {
+export interface ImageScaled {
+	width: number;
+	height: number;
+	url: string;
+	scaled: boolean;
+	_id: string;
+}
+
+export interface Label {
   /** The ID of the label. */
   id: string;
 
@@ -515,7 +635,7 @@ export declare class Label {
   color: Color;
 }
 
-export declare class List {
+export interface List {
   /** The ID of the list. */
   id: string;
 
@@ -541,7 +661,7 @@ export declare class List {
   softLimit: number | null;
 }
 
-export declare class Member {
+export interface Member {
   /** The ID of the member. */
   id: string;
 
@@ -647,7 +767,7 @@ export declare class Member {
   username: string;
 }
 
-export declare class Membership {
+export interface Membership {
   /** The unique identifier for a given membership. */
   id: string
 
@@ -668,7 +788,7 @@ export declare class Membership {
   deactivated: boolean
 }
 
-export declare class MembershipQuery {
+export interface MembershipQuery {
   /** One of: `admins`, `all`, `none`, `normal`. */
   filter: string;
 
@@ -684,7 +804,7 @@ export declare class MembershipQuery {
 
 }
 
-export declare class NewCardRequest {
+export interface NewCardRequest {
   /** The name for the card. */
   name: string;
 
@@ -735,7 +855,7 @@ export declare class NewCardRequest {
   coordinates: string;
 }
 
-export declare class Notification {
+export interface Notification {
   /** The ID of the notification. */
   id: string;
 
@@ -755,7 +875,7 @@ export declare class Notification {
   unread: boolean;
 }
 
-export declare class Options {
+export interface Options {
   /** The authentication key used to identify your app. */
   apiKey: string;
 
@@ -798,7 +918,7 @@ export declare class Options {
   includeHeaders?: boolean;
 }
 
-export declare class Organization {
+export interface Organization {
   /** The ID of the organization. */
   id: string;
   
@@ -842,14 +962,14 @@ export declare class Organization {
   // invited: ?; // Has absolutely no information on the API regarding what this is...
 }
 
-export declare class Permission {
+export interface Permission {
   idModel: string;
   modelType: string;
   read: boolean;
   write: boolean;
 }
 
-export declare class Prefs {
+export interface Prefs {
   sendSummaries: boolean;
   minutesBetweenSummaries: number;
   minutesBeforeDeadlineToNotify: number;
@@ -860,12 +980,21 @@ export declare class Prefs {
   privacy: Privacy;
 }
 
-export declare class Privacy {
+export interface Preview {
+	bytes: number;
+	url: string;
+	height: number;
+	width: number;
+	_id: string;
+	scaled: boolean;
+}
+
+export interface Privacy {
   fullName: string;
   avatar: string;
 }
 
-export declare class Reaction {
+export interface Reaction {
   id: string;
   idMember: string;
   idModel: string;
@@ -874,7 +1003,25 @@ export declare class Reaction {
   emoji: Emoji;
 }
 
-export declare class TimezoneInfo {
+export interface Sticker {
+	id: string;
+	top: number;
+	left: number;
+	zIndex: number;
+	rotate: number;
+	image: string;
+	imageUrl: string;
+	imageScaled: ImageScaled[];
+}
+
+export interface Sticker_UPDATE {
+	top?: number;
+	left?: number;
+	zIndex?: number;
+	rotate?: number;
+}
+
+export interface TimezoneInfo {
   timezoneNext: string;
   dateNext: string;
   offsetNext: number;
@@ -882,7 +1029,7 @@ export declare class TimezoneInfo {
   offsetCurrent: number;
 }
 
-export declare class Token {
+export interface Token {
   id: string;
   identifier: string;
   idMember: string;
@@ -892,12 +1039,12 @@ export declare class Token {
   webhooks: Webhook[];
 }
 
-export declare class TwoFactor {
+export interface TwoFactor {
   enabled: boolean;
   needsNewBackups: boolean;
 }
 
-export declare class Webhook {
+export interface Webhook {
   /** The ID of the webhook. */
   id: string;
 
@@ -923,7 +1070,7 @@ export declare class Webhook {
  * The parameters used when requesting a nested Action resource via a query
  * parameter. Other parameters may be available via a ActionNestedURL request.
  */
-export declare class ActionNestedQuery {
+export interface ActionNestedQuery {
   /** Default: `false` */
   actions_entities: boolean;
   
@@ -955,7 +1102,7 @@ export declare class ActionNestedQuery {
   action_memberCreator_fields: string;
 }
 
-export declare class BoardNestedQuery {
+export interface BoardNestedQuery {
   /**
    * Default: `none`
    * Options: `all` or a comma-separated list of the following:
@@ -1084,7 +1231,7 @@ export declare class BoardNestedQuery {
   board_lists?: string;
 }
 
-export declare class CardNestedQuery {
+export interface CardNestedQuery {
   /**
    * Default: `none`
    * Options: one of:
@@ -1200,7 +1347,7 @@ export declare class CardNestedQuery {
   card_customFieldItems?: boolean;
 }
 
-export declare class ChecklistNestedQuery {
+export interface ChecklistNestedQuery {
   checklists?: string;
   
   checklist_fields?: string;
@@ -1222,12 +1369,12 @@ export declare class ChecklistNestedQuery {
   checkItem_fields?: string;
 }
 
-export declare class CustomFieldNestedQuery {
+export interface CustomFieldNestedQuery {
   /** Default: `false`; `true`: include the custom fields. */
 	customFields?: boolean;
 }
 
-export declare class LabelNestedQuery {
+export interface LabelNestedQuery {
   /** 
    * Default: `none`
    * One of: `all` or `none`
@@ -1250,7 +1397,7 @@ export declare class LabelNestedQuery {
   labels_limit: number;
 }
 
-export declare class ListNestedQuery {
+export interface ListNestedQuery {
   /**
    * Default: `none`
    * One of: `all`, `closed`, `none`, `open`
@@ -1274,7 +1421,7 @@ export declare class ListNestedQuery {
   list_fields?: string;
 }
 
-export declare class MemberNestedQuery {
+export interface MemberNestedQuery {
   /**
    * Default: `none`
    * Options: one of:
@@ -1320,7 +1467,7 @@ export declare class MemberNestedQuery {
   member_fields?: string;
 }
 
-export declare class NotificationNestedQuery {
+export interface NotificationNestedQuery {
 	/**
    * `all` or comma-separated list of:
    * 
@@ -1416,7 +1563,7 @@ export declare class NotificationNestedQuery {
   notification_since?: string | null;
 }
 
-export declare class ReactionNestedQuery {
+export interface ReactionNestedQuery {
   /** Boolean to return reactions entities or not (default: `false`). */
   reactions?: boolean;
   
@@ -1837,7 +1984,7 @@ export declare enum NestedMemberType {
 // #endregion Enums
 
 // #region Custom Models
-export declare class APIResponse {
+export interface APIResponse {
   /** The data contained in the response from the API. */
   data: Object;
 
