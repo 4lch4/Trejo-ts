@@ -44,7 +44,7 @@ export default class Labels extends BaseEndpoint {
   }> { return this.performRequest('DELETE', `/labels/${id}`) }
 }
 
-declare class Label {
+declare interface Label {
   /** The ID of the label. */
   id: string;
 

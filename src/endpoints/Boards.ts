@@ -3,7 +3,7 @@ import BaseEndpoint from './BaseEndpoint';
 
 export default class Boards extends BaseEndpoint {
   async getBoard (id: string, queryParams: Object): Promise<Board | { data: Board, headers: Object }> {
-    return this.performRequest('GET', `/members/${id}/boards`, queryParams);
+    return this.performRequest('GET', `/boards/${id}`, queryParams);
   }
 
   async getBoardField (id: string, field: string): Promise<Object | { data: Object, headers: Object }> {
@@ -110,7 +110,7 @@ export default class Boards extends BaseEndpoint {
   }
 }
 
-declare interface Board {
+export interface Board {
   /** The unique identifier for the board. */
   id: string;
 
@@ -160,7 +160,7 @@ declare interface Board {
   memberships: Object[];
 }
 
-declare interface BoardStar {
+export interface BoardStar {
   id: string;
   boardStars: [{
     _id: string;
