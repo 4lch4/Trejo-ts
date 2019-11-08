@@ -569,17 +569,89 @@ export interface Checklist {
 }
 
 export interface Checklist_CREATE {
-  /** The name of the checklist. */
+  /** The ID of the card that the checklist should be added to. */
+  idCard: string;
+
+  /** The name of the checklist. Should be a string of length 1 - 16,384. */
   name?: string;
 
-  /** The ID of a source checklist to copy into the new one. */
-  idChecklistSource?: string;
-
-  /** 
-   * The position of the checklist on the card (relative to any other checklists
-   * on the card).
+  /**
+   * The position of the checklist on the card. One of: `top`, `bottom`, or a
+   * positive number.
    */
-  pos?: number;
+  pos?: string;
+
+  /** The ID of a checklist to copy into the new checklist. */
+  idChecklistSource?: string;
+}
+
+export interface Checklist_UPDATE {
+  /** The new name of the checklist being updated. 1 - 16,384 chars long. */
+  name?: string;
+
+  /**
+   * Determines the position of the checklist on the card.
+   * 
+   * One of: `top`, `bottom`, or a positive number.
+   */
+  pos?: string;
+}
+
+export interface Checklist_CheckItem_CREATE {
+  /**
+   * The name of the new CheckItem on the checklist. Should be a string of
+   * length 1 - 16,384.
+   */
+  name: string;
+
+  /**
+   * The position of the CheckItem in the checklist. One of: `top`, `bottom`,
+   * or a positive number.
+   */
+  pos?: string;
+
+  /** Determines whether the CheckItem is already checked upon creation. */
+  checked?: boolean;
+}
+
+export interface ChecklistQuery {
+  /**
+   * Valid values:
+   * 
+   * - `all`
+   * - `closed`
+   * - `none`
+   * - `open`
+   * - `visible`
+   */
+  cards?: string;
+
+  /** The check items on the list to return. One of: `all`, `none`. */
+  checkItems?: string;
+
+  /**
+   * The fields on the CheckItems to return if CheckItems are being returned.
+   * 
+   * `all` or a comma-separated list of:
+   * 
+   * - `name`
+   * - `nameData`
+   * - `pos`
+   * - `state`
+   * - `type`
+   */
+  checkItem_fields?: string;
+
+  /**
+   * `all` or a comma-separated list of:
+   * 
+   * - `id`
+   * - `idBoard`
+   * - `idCard`
+   * - `name`
+   * - `pos`
+   */
+  fields?: string;
 }
 
 export interface CustomField {
@@ -917,6 +989,43 @@ export interface Notification {
   unread: boolean;
 }
 
+export interface Notification_QUERY {
+  entities?: boolean;
+
+  display?: boolean;
+
+  filter?: string;
+
+  /**
+   * One of:
+   * 
+   * - `all`
+   * - `read`
+   * - `unread`
+   */
+  read_filter?: string;
+
+  /** `all` or a comma-separated list of Notification fields. */
+  field?: string;
+
+  /** Max: 1000 */
+  limit?: number;
+
+  /** Max: 100 */
+  page?: number;
+
+  /** A Notification ID. */
+  before?: string;
+
+  /** A Notification ID. */
+  since?: string;
+
+  memberCreator?: boolean;
+
+  /** `all` or comma-separated list of Member fields. */
+  memberCreator_fields?: string;
+}
+
 export interface Options {
   /** The authentication key used to identify your app. */
   apiKey: string;
@@ -1004,6 +1113,25 @@ export interface Organization {
   // invited: ?; // Has absolutely no information on the API regarding what this is...
 }
 
+export interface Organization_MEMBER_QUERY {
+  /**
+   * One of:
+   * 
+   * - `all`
+   * - `members`
+   * - `none`
+   * - `public`
+   * 
+   * _NOTE: `members` filters to only private teams._
+   */
+  filter?: string;
+
+  /** `all` or comma-separated list of Organization fields. */
+  fields?: string;
+
+  paid_account?: boolean;
+}
+
 export interface Permission {
   idModel: string;
   modelType: string;
@@ -1054,52 +1182,6 @@ export interface Sticker {
 	image: string;
 	imageUrl: string;
 	imageScaled: ImageScaled[];
-}
-
-export enum Sticker_DEFAULTS {
-  CHECK = 'check',
-  HEART = 'heart',
-  WARNING = 'warning',
-  CLOCK = 'clock',
-  SMILE = 'smile',
-  LAUGH = 'laugh',
-  HUH = 'huh',
-  FROWN = 'frown',
-  THUMBSUP = 'thumbsup',
-  THUMBSDOWN = 'thumbsdown',
-  STAR = 'star',
-  ROCKETSHIP = 'rocketship',
-  TACO_LOVE = 'taco-love',
-  TACO_CONFUSED = 'taco-confused',
-  TACO_COOL = 'taco-cool',
-  TACO_ANGRY = 'taco-angry',
-  TACO_CELEBRATE = 'taco-celebrate',
-  TACO_ROBOT = 'taco-robot',
-  TACO_ALERT = 'taco-alert',
-  TACO_ACTIVE = 'taco-active',
-  TACO_MONEY = 'taco-money',
-  TACO_READING = 'taco-reading',
-  TACO_TROPHY = 'taco-trophy',
-  TACO_SLEEPING = 'taco-sleeping',
-  TACO_PIXEL = 'taco-pixel',
-  TACO_PROTO = 'taco-proto',
-  TACO_EMBARRASSED = 'taco-embarrassed',
-  TACO_CLEAN = 'taco-clean',
-  PETE_HAPPY = 'pete-happy',
-  PETE_LOVE = 'pete-love',
-  PETE_BROKEN = 'pete-broken',
-  PETE_ALERT = 'pete-alert',
-  PETE_TALK = 'pete-talk',
-  PETE_VACATION = 'pete-vacation',
-  PETE_CONFUSED = 'pete-confused',
-  PETE_SHIPPED = 'pete-shipped',
-  PETE_BUSY = 'pete-busy',
-  PETE_COMPLETED = 'pete-completed',
-  PETE_SPACE = 'pete-space',
-  PETE_SKETCH = 'pete-sketch',
-  PETE_GHOST = 'pete-ghost',
-  PETE_AWARD = 'pete-award',
-  PETE_MUSIC = 'pete-music'
 }
 
 export interface Sticker_CREATE {
@@ -1804,6 +1886,11 @@ export enum ActionFields {
   type
 }
 
+export enum AvatarSource {
+  UPLOAD = 'upload',
+  GRAVATAR = 'gravatar'
+}
+
 /** The names of the fields that a Board object can contain. */
 export enum BoardFields {
   id,
@@ -2023,6 +2110,53 @@ export enum OrganizationFields {
   website
 }
 
+/** The names of the available default stickers. */
+export enum Sticker_DEFAULTS {
+  CHECK = 'check',
+  HEART = 'heart',
+  WARNING = 'warning',
+  CLOCK = 'clock',
+  SMILE = 'smile',
+  LAUGH = 'laugh',
+  HUH = 'huh',
+  FROWN = 'frown',
+  THUMBSUP = 'thumbsup',
+  THUMBSDOWN = 'thumbsdown',
+  STAR = 'star',
+  ROCKETSHIP = 'rocketship',
+  TACO_LOVE = 'taco-love',
+  TACO_CONFUSED = 'taco-confused',
+  TACO_COOL = 'taco-cool',
+  TACO_ANGRY = 'taco-angry',
+  TACO_CELEBRATE = 'taco-celebrate',
+  TACO_ROBOT = 'taco-robot',
+  TACO_ALERT = 'taco-alert',
+  TACO_ACTIVE = 'taco-active',
+  TACO_MONEY = 'taco-money',
+  TACO_READING = 'taco-reading',
+  TACO_TROPHY = 'taco-trophy',
+  TACO_SLEEPING = 'taco-sleeping',
+  TACO_PIXEL = 'taco-pixel',
+  TACO_PROTO = 'taco-proto',
+  TACO_EMBARRASSED = 'taco-embarrassed',
+  TACO_CLEAN = 'taco-clean',
+  PETE_HAPPY = 'pete-happy',
+  PETE_LOVE = 'pete-love',
+  PETE_BROKEN = 'pete-broken',
+  PETE_ALERT = 'pete-alert',
+  PETE_TALK = 'pete-talk',
+  PETE_VACATION = 'pete-vacation',
+  PETE_CONFUSED = 'pete-confused',
+  PETE_SHIPPED = 'pete-shipped',
+  PETE_BUSY = 'pete-busy',
+  PETE_COMPLETED = 'pete-completed',
+  PETE_SPACE = 'pete-space',
+  PETE_SKETCH = 'pete-sketch',
+  PETE_GHOST = 'pete-ghost',
+  PETE_AWARD = 'pete-award',
+  PETE_MUSIC = 'pete-music'
+}
+
 /** The names of the fields that a Webhook object can contain. */
 export enum WebhookFields {
   id,
@@ -2032,12 +2166,15 @@ export enum WebhookFields {
   active
 }
 
-export enum AvatarSource {
-  UPLOAD = 'upload',
-  GRAVATAR = 'gravatar'
+/** The names of the fields that a Checklist object can contain. */
+export enum BoardBackgrounds {
+  ALL = 'all',
+  CUSTOM = 'custom',
+  DEFAULT = 'default',
+  NONE = 'none',
+  PREMIUM = 'premium'
 }
 
-/** The names of the fields that a Checklist object can contain. */
 export enum ChecklistFields {
   id,
   idBoard,
@@ -2098,5 +2235,83 @@ export interface APIResponse {
 
   /** The headers contained in the response from the API. */
   headers: Object;
+}
+
+export interface Member_QUERY {
+  actions?: ActionNestedQuery;
+  
+  boards?: BoardNestedQuery;
+
+  boardBackgrounds?: string;
+
+  /**
+   * `all` or a comma-separated list of:
+   * 
+   * - `closed`
+   * - `members`
+   * - `open`
+   * - `organization`
+   * - `pinned`
+   * - `public`
+   * - `starred`
+   * - `unpinned`
+   */
+  boardsInvited?: string;
+
+  /** `all` or comma-separated list of Board fields. */
+  boardsInvited_fields?: string;
+
+  boardStars?: boolean;
+
+  cards?: CardNestedQuery;
+
+  /** `all` or `none` */
+  customBoardBackgrounds?: string;
+
+  /** `all` or `none` */
+  customEmoji?: string;
+
+  /** `all` or `none` */
+  customStickers?: string;
+
+  /** `all` or a comma-separated list of Member fields. */
+  fields?: string;
+
+  notifications?: NotificationNestedQuery;
+
+  /** 
+   * One of:
+   * 
+   * - `all`
+   * - `members`
+   * - `none`
+   * - `public`
+   */
+  organizations?: string;
+
+  /** `all` or a comma-separated list of Organization fields. */
+  organization_fields?: string;
+
+  organization_paid_account?: boolean;
+
+  /** 
+   * One of:
+   * 
+   * - `all`
+   * - `members`
+   * - `none`
+   * - `public`
+   */
+  organizationsInvited?: string;
+
+  /** `all` or a comma-separated list of Organization fields. */
+  organizationsInvited_fields?: string;
+
+  paid_account?: boolean;
+
+  savedSearches?: boolean;
+
+  /** `all` or `none` */
+  tokens?: string;
 }
 // #endregion Custom Models

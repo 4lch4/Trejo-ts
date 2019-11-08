@@ -2,11 +2,7 @@ import { Action, Board, Card, List, ListFields } from "../utils/shared";
 import BaseEndpoint from "./BaseEndpoint";
 
 export default class Lists extends BaseEndpoint {
-  async getBoard (id: string, queryParams: Object): Promise<Board | { data: Board, headers: Object }> {
-    return this.performRequest('GET', `/boards/${id}`, queryParams);
-  }
-
-  async getList(id: string, fields: string = 'all', queryParams: Object): Promise<List | { data: List, headers: Object }> {
+  async getList(id: string, fields: string = 'all', queryParams?: Object): Promise<List | { data: List, headers: Object }> {
     return this.performRequest('GET', `/lists/${id}/?fields=${fields}`, queryParams);
   }
 
@@ -14,15 +10,15 @@ export default class Lists extends BaseEndpoint {
     return this.performRequest('GET', `/lists/${id}/${field}`);
   }
 
-  async getListActions(id: string, queryParams: Object): Promise<Action[] | { data: Action[], headers: Object }> {
+  async getListActions(id: string, queryParams?: Object): Promise<Action[] | { data: Action[], headers: Object }> {
     return this.performRequest('GET', `/lists/${id}/actions`, queryParams);
   }
 
-  async getListBoard(id: string, queryParams: Object): Promise<Board | { data: Board, headers: Object }> {
+  async getListBoard(id: string, queryParams?: Object): Promise<Board | { data: Board, headers: Object }> {
     return this.performRequest('GET', `/lists/${id}/board`, queryParams);
   }
 
-  async getListCards(id: string, queryParams: Object): Promise<Card[] | { data: Card[], headers: Object }> {
+  async getListCards(id: string, queryParams?: Object): Promise<Card[] | { data: Card[], headers: Object }> {
     return this.performRequest('GET', `/lists/${id}/cards`, queryParams);
   }
 
