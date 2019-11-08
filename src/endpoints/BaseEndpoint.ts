@@ -65,11 +65,10 @@ export default class BaseEndpoint {
   }
 }
 
-
 /**
  *
- * @param {string} url The URL to append the parameters to.
- * @param {Object<string, string>} queryParams A string array containing the parameters to add.
+ * @param url The URL to append the parameters to.
+ * @param queryParams A string array containing the parameters to add.
  */
 const appendQueryParams = (url: string, queryParams: Object) => {
   let ending = []
