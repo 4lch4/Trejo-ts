@@ -1,4 +1,4 @@
-import { Action, Board, BoardBackgrounds, Card, Emoji, Member, MemberFields, Notification_QUERY as Notification_MEMBER_QUERY, Organization, Organization_MEMBER_QUERY, Sticker, Token } from '../utils/shared';
+import { Action, Board, BoardBackgrounds, BoardBackgrounds_MEMBER_UPDATE, Card, Emoji, Member, MemberFields, Member_UPDATE, Notification_QUERY as Notification_MEMBER_QUERY, Organization, Organization_MEMBER_QUERY, SavedSearch_UPDATE, Sticker, Token } from '../utils/shared';
 import BaseEndpoint from './BaseEndpoint';
 import { BoardStar } from './Boards';
 
@@ -118,4 +118,34 @@ export default class Members extends BaseEndpoint {
   async getMemberTokens(id: string, webhooks: boolean, queryParams: Object): Promise<Token[] | { data: Token[], headers: Object }> {
     return this.performRequest('GET', `/members/${id}/tokens`, { webhooks: webhooks, ...queryParams });
   }
+
+  async updateMember(id: string, updatedMember: Member_UPDATE): Promise<Member | { data: Member, headers: Object }> {
+    return this.performRequest('PUT', `/members/${id}`, updatedMember);
+  }
+
+  async updateMemberBoardBackground(memberId: string, boardBackgroundId: string, queryParams: BoardBackgrounds_MEMBER_UPDATE): Promise<BoardBackgrounds | { data: BoardBackgrounds, headers: Object }> {
+    return this.performRequest('PUT', `/members/${memberId}/boardBackgrounds/${boardBackgroundId}`, queryParams)
+  }
+
+  async updateMemberBoardStar(memberId: string, boardStarId: string, position: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+    return this.performRequest('PUT', `/members/${memberId}/boardStars/${boardStarId}`, { pos: position, ...queryParams });
+  }
+
+  async updateMemberCustomBoardBackground(memberId: string, customBoardBackgroundId: string, queryParams: BoardBackgrounds_MEMBER_UPDATE): Promise<Object | { data: Object, headers: Object }> {
+    return this.performRequest("PUT", `/members/${memberId}/customBoardBackgrounds/${customBoardBackgroundId}`, queryParams);
+  }
+
+  async udpateMemberSavedSearch(memberId: string, savedSearchId: string, queryParams: SavedSearch_UPDATE): Promise<Object | { data: Object, headers: Object }> {
+    return this.performRequest('PUT', `/members/${memberId}/savedSearches/${savedSearchId}`, queryParams);
+  }
+
+  async createMemberAvatar(id: string, file: File, queryParams?: Object): Promise<Member | { data: Member, headers: Object }> {
+    return this.performRequest('POST', `/members/${id}/avatar`, { file: file, ...queryParams })
+  }
+
+  async uploadMemberBoardBackground(id: string, file: File, queryParams?: Object): Promise<Member | { data: Member, headers: Object }> {
+    return this.performRequest('POST', `/members/${id}/boardBackgrounds`, { file: file, ...queryParams });
+  }
+
+  // async starBoard(id: string, queryParams: StarBoard_QUERY)
 }

@@ -306,6 +306,13 @@ export interface Board_UPDATE {
   "labelNames/blue"?: string;
 }
 
+export interface BoardBackgrounds_MEMBER_UPDATE {
+  brightness?: 'dark' | 'light' | 'unknown';
+
+  /** Whether the background should be tiled. */
+  tile?: boolean;
+}
+
 export interface BoardPlugin {
   id: string;
   name: string;
@@ -881,6 +888,30 @@ export interface Member {
   username: string;
 }
 
+export interface Member_UPDATE {
+  /** New name for the member. Cannot begin or end with a space. */
+  fullName?: string;
+
+  /** New initials for the member. 1-4 characters long. */
+  initials?: string;
+
+  /**
+   * New username for the member. At least 3 characters long, only lowercase
+   * letters, underscores, and numbers. Must be unique.
+   */
+  username?: string;
+
+  bio?: string;
+
+  avatarSource?: AvatarSource;
+
+  prefs_ColorBlind?: boolean;
+  prefs_locale?: string;
+  
+  /** `-1` for disabled, `1`, or `60`. */
+  prefs_minutesBetweenSummaries?: number;
+}
+
 export interface Membership {
   /** The unique identifier for a given membership. */
   id: string
@@ -1173,6 +1204,17 @@ export interface Reaction {
   emoji: Emoji;
 }
 
+export interface SavedSearch_UPDATE {
+  /** The new name for the SavedSearch. */
+  name?: string;
+
+  /** The new search query. */
+  query?: string;
+
+  /** New position for saves search. */
+  pos?: 'top' | 'bottom' | number;
+}
+
 export interface Sticker {
 	id: string;
 	top: number;
@@ -1424,14 +1466,15 @@ export interface BoardNestedQuery {
 export interface CardNestedQuery {
   /**
    * Default: `none`
-   * Options: one of:
+   * 
+   * Options:
    * - `all`
    * - `closed`
    * - `none`
    * - `open` - Includes cards that are open in lists that have been archived.
    * - `visible` - Only returns cards in lists that are not closed.
    */
-  cards?: string;
+  cards?: 'all' | 'closed' | 'none' | 'open' | 'visible';
   
   /**
    * Default: `all`
