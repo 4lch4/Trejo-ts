@@ -1,5 +1,5 @@
 src/
 sample_responses/
 pnpm-lock.yaml
-renovate.yaml
+renovate.json
 tsconfig.json
