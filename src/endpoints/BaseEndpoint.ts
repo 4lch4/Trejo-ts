@@ -90,6 +90,7 @@ const appendQueryParams = (url: string, queryParams: Object) => {
   let ending = []
 
   for (const property in queryParams) {
+    // @ts-ignore
     ending.push(`${property}=${queryParams[property].replace(',', '%2C')}`)
   }
 
