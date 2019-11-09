@@ -1,4 +1,4 @@
-import { Action, Board, BoardBackgrounds, BoardBackgrounds_MEMBER_UPDATE, Card, Emoji, Member, MemberFields, Member_UPDATE, Notification_QUERY as Notification_MEMBER_QUERY, Organization, Organization_MEMBER_QUERY, SavedSearch_UPDATE, Sticker, Token } from '../utils/shared';
+import { Action, Board, BoardBackgrounds, BoardBackgrounds_MEMBER_UPDATE, Card, CustomEmoji_CREATE, Emoji, Member, MemberFields, Member_UPDATE, Notification_QUERY as Notification_MEMBER_QUERY, Organization, Organization_MEMBER_QUERY, SavedSearch_CREATE, SavedSearch_UPDATE, StarBoard_QUERY, Sticker, Token } from '../utils/shared';
 import BaseEndpoint from './BaseEndpoint';
 import { BoardStar } from './Boards';
 
@@ -147,5 +147,47 @@ export default class Members extends BaseEndpoint {
     return this.performRequest('POST', `/members/${id}/boardBackgrounds`, { file: file, ...queryParams });
   }
 
-  // async starBoard(id: string, queryParams: StarBoard_QUERY)
+  async starNewBoard(id: string, queryParams: StarBoard_QUERY): Promise<Board | { data: Board, headers: Object }> {
+    return this.performRequest('POST', `/members/${id}/boardStars`, queryParams);
+  }
+
+  async uploadNewCustomBoardBackground(id: string, file: File, queryParams: Object): Promise<Member | { data: Member, headers: Object }> {
+    return this.performRequest('POST', `/members/${id}/customBoardBackgrounds`, { file: file, ...queryParams });
+  }
+
+  async uploadNewCustomEmoji(id: string, queryParams: CustomEmoji_CREATE): Promise<Member | { data: Member, headers: Object }> {
+    return this.performRequest('POST', `/members/${id}/customEmoji`, queryParams);
+  }
+
+  async uploadCustomSticker(id: string, file: File, queryParams: Object): Promise<Member | { data: Member, headers: Object }> {
+    return this.performRequest('POST', `/members/${id}/customStickers`, { file: file, ...queryParams })
+  }
+
+  async dismissOneTimeMessage(id: string, message: string, queryParams: Object): Promise<Member | { data: Member, headers: Object }> {
+    return this.performRequest('POST', `/members/${id}/savedSearches`, { value: message, ...queryParams });
+  }
+
+  async createMemberSavedSearch(id: string, queryParams: SavedSearch_CREATE): Promise<Member | { data: Member, headers: Object }> {
+    return this.performRequest('POST', `/members/${id}/savedSearches`, queryParams);
+  }
+
+  async deleteBoardBackground(memberId: string, boardBackgroundId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+    return this.performRequest('DELETE', `/members/${memberId}/boardBackgrounds/${boardBackgroundId}`, queryParams);
+  }
+
+  async unstarBoard(memberId: string, boardId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+    return this.performRequest('DELETE', `/members/${memberId}/boardStars/${boardId}`, queryParams);
+  }
+
+  async deleteCustomBoardBackground(memberId: string, customBoardBackgroundId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+    return this.performRequest('DELETE', `/members/${memberId}/customBoardBackgrounds/${customBoardBackgroundId}`, queryParams);
+  }
+
+  async deleteCustomSticker(memberId: string, customStickerId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+    return this.performRequest('DELETE', `/members/${memberId}/customStickers/${customStickerId}`, queryParams);
+  }
+
+  async deleteSavedSearch(memberId: string, savedSearchId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+    return this.performRequest('DELETE', `/members/${memberId}/savedSearches/${savedSearchId}`, queryParams);
+  }
 }

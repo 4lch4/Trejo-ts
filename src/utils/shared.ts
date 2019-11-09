@@ -712,6 +712,13 @@ export interface CustomField {
   display: Object;
 }
 
+export interface CustomEmoji_CREATE {
+  file: File;
+
+  /** Name for the emoji. 2 - 64 characters. */
+  name: string;
+}
+
 export interface Emoji {
   unified: string;
   native: Object;
@@ -1204,6 +1211,17 @@ export interface Reaction {
   emoji: Emoji;
 }
 
+export interface SavedSearch_CREATE {
+  /** The name for the saved search. */
+  name: string;
+
+  /** The search query. */
+  query: string;
+
+  /** The position of the saved search. `top`, `bottom`, or a positive float. */
+  pos: string;
+}
+
 export interface SavedSearch_UPDATE {
   /** The new name for the SavedSearch. */
   name?: string;
@@ -1213,6 +1231,17 @@ export interface SavedSearch_UPDATE {
 
   /** New position for saves search. */
   pos?: 'top' | 'bottom' | number;
+}
+
+export interface StarBoard_QUERY {
+  /** The ID of the Board to star. */
+  idBoard: string;
+
+  /** 
+   * The positiion of th newly starred board. `top`, `bottom`, or a positive
+   * float.
+   */
+  pos: string;
 }
 
 export interface Sticker {
