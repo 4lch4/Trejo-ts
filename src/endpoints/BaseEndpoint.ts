@@ -52,6 +52,22 @@ export default class BaseEndpoint {
     } else return res.data;
   }
 
+  async performBodyRequest (method: 'get' | 'GET' | 'put' | 'PUT' | 'post' | 'POST' | 'delete' | 'DELETE', endpoint: string, bodyParams?: Object) {
+    const res = await axios({
+      url: encodeURI(`${this.baseUrl}${endpoint}`),
+      data: bodyParams,
+      method: method,
+      headers: this.headers
+    })
+
+    if (this.includeHeaders) {
+      return {
+        data: res.data,
+        headers: res.headers
+      }
+    } else return res.data;
+  }
+
   /**
    * Merges the key/value pairs of the two provided Objects. If any keys have
    * the same name, the value from the 2nd Object is used over the 1st, so keep

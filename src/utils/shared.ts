@@ -733,6 +733,17 @@ export interface Emoji {
   shortName: string;
 }
 
+export interface Emoji_QUERY {
+  /**
+   * The locale to return emoji descriptions and names in. Defaults to the
+   * logged in member's locale.
+   */
+  locale?: string;
+
+  /** `true` to return spritesheet URLs in the response. */
+  spritesheets?: boolean;
+}
+
 export interface Icon {
 	url?: string;
 }
@@ -1271,6 +1282,30 @@ export interface Reaction {
   idEmoji: string;
   member: Member;
   emoji: Emoji;
+}
+
+export interface Reaction_CREATE {
+  /** The primary `shotName` of the emoji to add. */
+  shortName?: string;
+
+  /** The `skinVariation` of the emoji to add. */
+  skinVariation?: string;
+
+  /** The emoji to add as a native unicode emoji. */
+  native?: string;
+
+  /** The `unified` value of the emoji to add. */
+  unified?: string;
+}
+
+export interface ReactionSummary {
+	count: number;
+	id: string;
+	firstReacted: string;
+	idEmoji: string;
+	idModel: string;
+	idReaction: string;
+	emoji: Emoji;
 }
 
 export interface SavedSearch_CREATE {
