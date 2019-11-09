@@ -661,6 +661,12 @@ export interface ChecklistQuery {
   fields?: string;
 }
 
+export interface Compliance {
+	lastPolled?: LastPolled;
+	dateUpdatedStoresPersonalData?: string;
+	storesPersonalData?: boolean;
+}
+
 export interface CustomField {
   /** The ID of the Custom Field definition. */
   id: string;
@@ -727,6 +733,10 @@ export interface Emoji {
   shortName: string;
 }
 
+export interface Icon {
+	url?: string;
+}
+
 export interface ImageScaled {
 	width: number;
 	height: number;
@@ -763,6 +773,10 @@ export interface Label_CARD_CREATE {
   color: Color;
 }
 
+export interface LastPolled {
+	memberPrivacy?: string;
+}
+
 export interface List {
   /** The ID of the list. */
   id: string;
@@ -787,6 +801,13 @@ export interface List {
    * Power-Up.
    */
   softLimit: number | null;
+}
+
+export interface Listing {
+	name?: string;
+	locale?: string;
+	description?: string;
+	overview?: string;
 }
 
 export interface Member {
@@ -1205,6 +1226,17 @@ export interface Permission {
   modelType: string;
   read: boolean;
   write: boolean;
+}
+
+export interface Plugin {
+	id?: string;
+	capabilities?: string[];
+	iframeConnectorUrl?: string;
+	name?: string;
+	public?: boolean;
+	icon?: Icon;
+	listings?: Listing[];
+	compliance?: Compliance;
 }
 
 export interface Prefs {
