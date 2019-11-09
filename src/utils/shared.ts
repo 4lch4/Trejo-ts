@@ -1028,9 +1028,35 @@ export interface Notification {
 }
 
 export interface Notification_QUERY {
+  /** Whether to include the board object. */
+  board?: boolean;
+
+  /** `all` or a comma-separated list of Board fields. */
+  board_fields?: string;
+
+  /** Whether to include the card object. */
+  card?: boolean;
+
+  /** `all` or comma-separated list of Card fields. */
+  card_fields?: string;
+
+  /** Whether to include the display object with the results. */
+  display?: boolean;
+
+  /** Whether to include the Entities object with the results. */
   entities?: boolean;
 
-  display?: boolean;
+  /** `all` or a comma-separated list of Notification fields. */
+  fields?: string;
+
+  /** Whether to include the List object. */
+  list?: boolean;
+
+  /** Whether to include the Member object. */
+  member?: boolean;
+
+  /** `all` or comma-separated list of Member fields. */
+  member_fields?: string;
 
   filter?: string;
 
@@ -1042,9 +1068,6 @@ export interface Notification_QUERY {
    * - `unread`
    */
   read_filter?: string;
-
-  /** `all` or a comma-separated list of Notification fields. */
-  field?: string;
 
   /** Max: 1000 */
   limit?: number;
@@ -1058,10 +1081,17 @@ export interface Notification_QUERY {
   /** A Notification ID. */
   since?: string;
 
+  /** Whether to include the member object of the creator. */
   memberCreator?: boolean;
 
   /** `all` or comma-separated list of Member fields. */
   memberCreator_fields?: string;
+
+  /** Whether to include the organization object. */
+  organization?: boolean;
+
+  /** `all` or a comma-separated list of Organization fields. */
+  organization_fields?: string;
 }
 
 export interface Options {
