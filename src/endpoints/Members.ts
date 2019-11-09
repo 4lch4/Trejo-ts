@@ -107,15 +107,15 @@ export default class Members extends BaseEndpoint {
     return this.performRequest('GET', `/members/${id}/organizationsInvited`, { fields: fields });
   }
 
-  async getMemberSavedSearches(id: string, queryParams: Object): Promise<Object[] | { data: Object[], headers: Object }> {
+  async getMemberSavedSearches(id: string, queryParams?: Object): Promise<Object[] | { data: Object[], headers: Object }> {
     return this.performRequest('GET', `/members/${id}/savedSearchs`, queryParams);
   }
 
-  async getMemberSavedSearch(memberId: string, savedSearchId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+  async getMemberSavedSearch(memberId: string, savedSearchId: string, queryParams?: Object): Promise<Object | { data: Object, headers: Object }> {
     return this.performRequest('GET', `/members/${memberId}/savedSearches/${savedSearchId}`, queryParams);
   }
 
-  async getMemberTokens(id: string, webhooks: boolean, queryParams: Object): Promise<Token[] | { data: Token[], headers: Object }> {
+  async getMemberTokens(id: string, webhooks: boolean, queryParams?: Object): Promise<Token[] | { data: Token[], headers: Object }> {
     return this.performRequest('GET', `/members/${id}/tokens`, { webhooks: webhooks, ...queryParams });
   }
 
@@ -127,7 +127,7 @@ export default class Members extends BaseEndpoint {
     return this.performRequest('PUT', `/members/${memberId}/boardBackgrounds/${boardBackgroundId}`, queryParams)
   }
 
-  async updateMemberBoardStar(memberId: string, boardStarId: string, position: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+  async updateMemberBoardStar(memberId: string, boardStarId: string, position: string, queryParams?: Object): Promise<Object | { data: Object, headers: Object }> {
     return this.performRequest('PUT', `/members/${memberId}/boardStars/${boardStarId}`, { pos: position, ...queryParams });
   }
 
@@ -151,7 +151,7 @@ export default class Members extends BaseEndpoint {
     return this.performRequest('POST', `/members/${id}/boardStars`, queryParams);
   }
 
-  async uploadNewCustomBoardBackground(id: string, file: File, queryParams: Object): Promise<Member | { data: Member, headers: Object }> {
+  async uploadNewCustomBoardBackground(id: string, file: File, queryParams?: Object): Promise<Member | { data: Member, headers: Object }> {
     return this.performRequest('POST', `/members/${id}/customBoardBackgrounds`, { file: file, ...queryParams });
   }
 
@@ -159,11 +159,11 @@ export default class Members extends BaseEndpoint {
     return this.performRequest('POST', `/members/${id}/customEmoji`, queryParams);
   }
 
-  async uploadCustomSticker(id: string, file: File, queryParams: Object): Promise<Member | { data: Member, headers: Object }> {
+  async uploadCustomSticker(id: string, file: File, queryParams?: Object): Promise<Member | { data: Member, headers: Object }> {
     return this.performRequest('POST', `/members/${id}/customStickers`, { file: file, ...queryParams })
   }
 
-  async dismissOneTimeMessage(id: string, message: string, queryParams: Object): Promise<Member | { data: Member, headers: Object }> {
+  async dismissOneTimeMessage(id: string, message: string, queryParams?: Object): Promise<Member | { data: Member, headers: Object }> {
     return this.performRequest('POST', `/members/${id}/savedSearches`, { value: message, ...queryParams });
   }
 
@@ -171,23 +171,23 @@ export default class Members extends BaseEndpoint {
     return this.performRequest('POST', `/members/${id}/savedSearches`, queryParams);
   }
 
-  async deleteBoardBackground(memberId: string, boardBackgroundId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+  async deleteBoardBackground(memberId: string, boardBackgroundId: string, queryParams?: Object): Promise<Object | { data: Object, headers: Object }> {
     return this.performRequest('DELETE', `/members/${memberId}/boardBackgrounds/${boardBackgroundId}`, queryParams);
   }
 
-  async unstarBoard(memberId: string, boardId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+  async unstarBoard(memberId: string, boardId: string, queryParams?: Object): Promise<Object | { data: Object, headers: Object }> {
     return this.performRequest('DELETE', `/members/${memberId}/boardStars/${boardId}`, queryParams);
   }
 
-  async deleteCustomBoardBackground(memberId: string, customBoardBackgroundId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+  async deleteCustomBoardBackground(memberId: string, customBoardBackgroundId: string, queryParams?: Object): Promise<Object | { data: Object, headers: Object }> {
     return this.performRequest('DELETE', `/members/${memberId}/customBoardBackgrounds/${customBoardBackgroundId}`, queryParams);
   }
 
-  async deleteCustomSticker(memberId: string, customStickerId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+  async deleteCustomSticker(memberId: string, customStickerId: string, queryParams?: Object): Promise<Object | { data: Object, headers: Object }> {
     return this.performRequest('DELETE', `/members/${memberId}/customStickers/${customStickerId}`, queryParams);
   }
 
-  async deleteSavedSearch(memberId: string, savedSearchId: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+  async deleteSavedSearch(memberId: string, savedSearchId: string, queryParams?: Object): Promise<Object | { data: Object, headers: Object }> {
     return this.performRequest('DELETE', `/members/${memberId}/savedSearches/${savedSearchId}`, queryParams);
   }
 }

@@ -42,14 +42,14 @@ export default class Checklists extends BaseEndpoint {
    * @param id The ID of the checklist.
    * @param queryParams The Card Nested Resource object to query the API with.
    */
-  async getChecklistCards (id: string, queryParams: Object): Promise<Card[] | {
+  async getChecklistCards (id: string, queryParams?: Object): Promise<Card[] | {
     data: Card[],
     headers: Object
   }> {
     return this.performRequest('GET', `/checklists/${id}/cards`, queryParams)
   }
 
-  async getChecklistCheckItems (id: string, queryParams: Object): Promise<CheckItem[] | {
+  async getChecklistCheckItems (id: string, queryParams?: Object): Promise<CheckItem[] | {
     data: CheckItem[],
     headers: Object
   }> {

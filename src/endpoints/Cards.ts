@@ -2,67 +2,67 @@ import { Action, Attachment, Attachment_CARD_CREATE, Board, Card, CardFields, Ca
 import BaseEndpoint from './BaseEndpoint';
 
 export default class Cards extends BaseEndpoint {
-  async getCard (id: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async getCard (id: string, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('GET', `/cards/${id}`, queryParams);
   }
 
-  async getCardField(id: string, field: string, queryParams: Object): Promise<CardFields | { data: CardFields, headers: Object }> {
+  async getCardField(id: string, field: string, queryParams?: Object): Promise<CardFields | { data: CardFields, headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/${field}`, queryParams);
   }
 
-  async getCardActions(id: string, queryParams: Object): Promise<Action | { data: Action, headers: Object}> {
+  async getCardActions(id: string, queryParams?: Object): Promise<Action | { data: Action, headers: Object}> {
     return this.performRequest('GET', `/cards/${id}/actions`, queryParams);
   }
   
-  async getCardAttachments(id: string, queryParams: Object): Promise<Attachment[] | { data: Attachment[], headers: Object }> {
+  async getCardAttachments(id: string, queryParams?: Object): Promise<Attachment[] | { data: Attachment[], headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/attachments`, queryParams);
   }
 
-  async getCardAttachment(cardId: string, attachmentId: string, queryParams: Object): Promise<Attachment | { data: Attachment, headers: Object }> {
+  async getCardAttachment(cardId: string, attachmentId: string, queryParams?: Object): Promise<Attachment | { data: Attachment, headers: Object }> {
     return this.performRequest('GET', `/cards/${cardId}/attachments/${attachmentId}`, queryParams);
   }
 
-  async getCardBoard(id: string, queryParams: Object): Promise<Board | { data: Board, headers: Board }> {
+  async getCardBoard(id: string, queryParams?: Object): Promise<Board | { data: Board, headers: Board }> {
     return this.performRequest('GET', `/cards/${id}/board`, queryParams);
   }
 
-  async getCardCheckItemStates(id: string, queryParams: Object): Promise<CheckItem[] | { data: CheckItem[], headers: Object }> {
+  async getCardCheckItemStates(id: string, queryParams?: Object): Promise<CheckItem[] | { data: CheckItem[], headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/checkItemStates`, queryParams);
   }
 
-  async getCardChecklists(id: string, queryParams: Object): Promise<Checklist[] | { data: Checklist[], headers: Object }> {
+  async getCardChecklists(id: string, queryParams?: Object): Promise<Checklist[] | { data: Checklist[], headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/checklists`, queryParams);
   }
 
-  async getCardChecklistCheckItem(cardId: string, checkItemId: string, queryParams: Object): Promise<CheckItem | { data: CheckItem, headers: Object }> {
+  async getCardChecklistCheckItem(cardId: string, checkItemId: string, queryParams?: Object): Promise<CheckItem | { data: CheckItem, headers: Object }> {
     return this.performRequest('GET', `/cards/${cardId}/checkItem/${checkItemId}`, queryParams);
   }
 
-  async getCardCustomFieldItems(id: string, queryParams: Object): Promise<CustomField[] | { data: CustomField[], headers: Object }> {
+  async getCardCustomFieldItems(id: string, queryParams?: Object): Promise<CustomField[] | { data: CustomField[], headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/customFieldItems`, queryParams);
   }
 
-  async getCardList(id: string, queryParams: Object): Promise<List | { data: List, headers: Object }> {
+  async getCardList(id: string, queryParams?: Object): Promise<List | { data: List, headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/list`, queryParams);
   }
 
-  async getCardMembers(id: string, queryParams: Object): Promise<Member[] | { data: Member[], headers: Object }> {
+  async getCardMembers(id: string, queryParams?: Object): Promise<Member[] | { data: Member[], headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/members`, queryParams);
   }
 
-  async getCardMembersVoted(id: string, queryParams: Object): Promise<Member[] | { data: Member[], headers: Object }> {
+  async getCardMembersVoted(id: string, queryParams?: Object): Promise<Member[] | { data: Member[], headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/membersVoted`, queryParams);
   }
 
-  async getCardPluginData(id: string, queryParams: Object): Promise<Object | { data: Object, headers: Object }> {
+  async getCardPluginData(id: string, queryParams?: Object): Promise<Object | { data: Object, headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/pluginData`, queryParams);
   }
 
-  async getCardStickers(id: string, queryParams: Object): Promise<Sticker[] | { data: Sticker[], headers: Object }> {
+  async getCardStickers(id: string, queryParams?: Object): Promise<Sticker[] | { data: Sticker[], headers: Object }> {
     return this.performRequest('GET', `/cards/${id}/stickers`, queryParams);
   }
 
-  async getCardSticker(cardId: string, stickerId: string, queryParams: Object): Promise<Sticker | { data: Sticker, headers: Object }> {
+  async getCardSticker(cardId: string, stickerId: string, queryParams?: Object): Promise<Sticker | { data: Sticker, headers: Object }> {
     return this.performRequest('GET', `/cards/${cardId}/stickers/${stickerId}`, queryParams);
   }
 
@@ -70,7 +70,7 @@ export default class Cards extends BaseEndpoint {
     return this.performRequest('PUT', `/cards/${id}`, updateCard);
   }
 
-  async updateCardActionComment(cardId: string, actionId: string, text: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async updateCardActionComment(cardId: string, actionId: string, text: string, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('PUT', `/cards/${cardId}/actions/${actionId}/comments`, { text: text, ...queryParams });
   }
 
@@ -78,7 +78,7 @@ export default class Cards extends BaseEndpoint {
     return this.performRequest('PUT', `/cards/${cardId}/checkItem/${checkitemId}`, queryParams);
   }
 
-  async updateCardChecklistCheckItem(cardId: string, checklistId: string, checkItemId: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async updateCardChecklistCheckItem(cardId: string, checklistId: string, checkItemId: string, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('PUT', `/cards/${cardId}/checklist/${checklistId}/checkItem/${checkItemId}`, queryParams);
   }
   
@@ -86,11 +86,11 @@ export default class Cards extends BaseEndpoint {
     return this.performRequest('PUT', `/cards/${cardId}/stickers/${stickerId}`, stickerUpdate);
   }
   
-  async createCard (newCard: Card_CREATE, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async createCard (newCard: Card_CREATE, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards`, { ...newCard, ...queryParams })
   }
 
-  async addCardActionComment(id: string, comment: string, queryParams: Object): Promise<Action | { data: Action, headers: Object }> {
+  async addCardActionComment(id: string, comment: string, queryParams?: Object): Promise<Action | { data: Action, headers: Object }> {
     return this.performRequest('POST', `/cards/${id}/actions/comments`, { text: comment, ...queryParams });
   }
 
@@ -102,35 +102,35 @@ export default class Cards extends BaseEndpoint {
    * @param attachment The object containing the attachment data.
    * @param queryParams Any further query parameters you wish to add.
    */
-  async addCardAttachment(id: string, attachment: Attachment_CARD_CREATE, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async addCardAttachment(id: string, attachment: Attachment_CARD_CREATE, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards/${id}/attachments`, { ...attachment, ...queryParams });
   }
 
-  async addCardChecklist(id: string, newChecklist: Checklist_CREATE, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async addCardChecklist(id: string, newChecklist: Checklist_CREATE, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards/${id}/checklists`, { ...newChecklist, ...queryParams });
   }
 
-  async addCardExistingLabel(cardId: string, labelId: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async addCardExistingLabel(cardId: string, labelId: string, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards/${cardId}/idLabels`, { value: labelId, ...queryParams });
   }
 
-  async addCardMember(cardId: string, memberId: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async addCardMember(cardId: string, memberId: string, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards/${cardId}/idMembers`, { value: memberId, ...queryParams });
   }
 
-  async addNewCardLabel(id: string, label: Label, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async addNewCardLabel(id: string, label: Label, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards/${id}/labels`, { ...label, ...queryParams });
   }
 
-  async markCardNotificationsRead(id: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async markCardNotificationsRead(id: string, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards/${id}/markAssociatedNotificationsRead`, queryParams);
   }
 
-  async voteOnCard(cardId: string, memberId: string, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async voteOnCard(cardId: string, memberId: string, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards/${cardId}`, { value: memberId, ...queryParams });
   }
 
-  async addCardSticker(id: string, sticker: Sticker_CREATE, queryParams: Object): Promise<Card | { data: Card, headers: Object }> {
+  async addCardSticker(id: string, sticker: Sticker_CREATE, queryParams?: Object): Promise<Card | { data: Card, headers: Object }> {
     return this.performRequest('POST', `/cards/${id}/stickers`, { ...sticker, ...queryParams });
   }
 

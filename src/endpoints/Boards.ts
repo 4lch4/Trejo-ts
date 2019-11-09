@@ -2,7 +2,7 @@ import { Action, BoardPlugin, BoardPowerUp, Card, Checklist, CustomField, Label,
 import BaseEndpoint from './BaseEndpoint';
 
 export default class Boards extends BaseEndpoint {
-  async getBoard (id: string, queryParams: Object): Promise<Board | { data: Board, headers: Object }> {
+  async getBoard (id: string, queryParams?: Object): Promise<Board | { data: Board, headers: Object }> {
     return this.performRequest('GET', `/boards/${id}`, queryParams);
   }
 
@@ -10,7 +10,7 @@ export default class Boards extends BaseEndpoint {
     return this.performRequest('GET', `/boards/${id}/${field}`);
   }
 
-  async getBoardActions (id: string, queryParams: Object): Promise<Action[] | { data: Action[], headers: Object}> {
+  async getBoardActions (id: string, queryParams?: Object): Promise<Action[] | { data: Action[], headers: Object}> {
     return this.performRequest('GET', `/boards/${id}/actions`, queryParams);
   }
 
@@ -32,7 +32,7 @@ export default class Boards extends BaseEndpoint {
     return this.performRequest('GET', `/boards/${id}/`, { fields: 'id', boardStars: filter });
   }
 
-  async getBoardCards (id: string, queryParams: Object): Promise<Card[] | {
+  async getBoardCards (id: string, queryParams?: Object): Promise<Card[] | {
     data: Card[],
     headers: Object
   }> {
@@ -46,14 +46,14 @@ export default class Boards extends BaseEndpoint {
     return this.performRequest('GET', `/boards/${id}/cards/${filter}`);
   }
 
-  async getBoardCard (boardId: string, cardId: string, queryParams: Object): Promise<Card | {
+  async getBoardCard (boardId: string, cardId: string, queryParams?: Object): Promise<Card | {
     data: Card,
     headers: Object
   }> {
     return this.performRequest('GET', `/boards/${boardId}/cards/${cardId}`, queryParams);
   }
 
-  async getBoardChecklists (id: string, queryParams: Object): Promise<Checklist[] | {
+  async getBoardChecklists (id: string, queryParams?: Object): Promise<Checklist[] | {
     data: Checklist[],
     headers: Object
   }> {
@@ -67,14 +67,14 @@ export default class Boards extends BaseEndpoint {
     return this.performRequest('GET', `/boards/${id}/customFields`);
   }
 
-  async getBoardLabels (id: string, queryParams: Object): Promise<Label[] | {
+  async getBoardLabels (id: string, queryParams?: Object): Promise<Label[] | {
     data: Label[],
     headers: Object
   }> {
     return this.performRequest('GET', `/boards/${id}/labels`, queryParams);
   }
 
-  async getBoardLists (id: string, queryParams: Object): Promise<List[] | {
+  async getBoardLists (id: string, queryParams?: Object): Promise<List[] | {
     data: List[],
     headers: Object
   }> {
@@ -88,21 +88,21 @@ export default class Boards extends BaseEndpoint {
     return this.performRequest('GET', `/boards/${id}/lists/${filter}`);
   }
   
-  async getBoardMembers (id: string, queryParams: Object): Promise<Membership[] | {
+  async getBoardMembers (id: string, queryParams?: Object): Promise<Membership[] | {
     data: Member[],
     headers: Object
   }> {
     return this.performRequest('GET', `/boards/${id}/members`, queryParams);
   }
 
-  async getBoardMemberships (id: string, queryParams: Object): Promise<Board | {
+  async getBoardMemberships (id: string, queryParams?: Object): Promise<Board | {
     data: Membership[],
     headers: Object
   }> {
     return this.performRequest('GET', `/boards/${id}/memberships`, queryParams);
   }
 
-  async updateBoardById (id: string, queryParams: Object): Promise<Card[] | {
+  async updateBoardById (id: string, queryParams?: Object): Promise<Card[] | {
     data: Board,
     headers: Object
   }> {
