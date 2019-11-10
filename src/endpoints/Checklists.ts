@@ -1,4 +1,4 @@
-import { Board, Card, CheckItem, Checklist } from '../utils/shared'
+import { Board, Card, CheckItem, Checklist, ChecklistQuery, Checklist_CheckItem_CREATE, Checklist_CREATE, Checklist_UPDATE } from '../utils/shared'
 import BaseEndpoint from './BaseEndpoint'
 
 export default class Checklists extends BaseEndpoint {
