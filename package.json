@@ -3,28 +3,43 @@
   "version": "0.2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "readme": "./README.md",
   "scripts": {
     "tsc": "tsc --pretty -d --removeComments",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --passWithNoTests"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Alcha/Trejo-ts.git"
+    "url": "git+https://github.com/4lch4/Trejo.git"
   },
   "keywords": [
+    "api-wrapper",
+    "api-library",
+    "api-rest",
     "trello",
-    "automation"
+    "trello-api",
+    "trello-board",
+    "trello-cli",
+    "trello-plus",
+    "trello-card",
+    "trello-like"
   ],
-  "author": "Alcha <hello@alcha.org> (https://alcha.org)",
+  "author": {
+    "email": "hello@4lch4.com",
+    "name": "4lch4",
+    "url": "https://hasslefree.solutions"
+  },
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/Alcha/Trejo-ts/issues"
+    "email": "bugs@4lch4.com",
+    "url": "https://github.com/4lch4/Trejo/issues"
   },
-  "homepage": "https://github.com/Alcha/Trejo-ts#readme",
+  "homepage": "https://github.com/4lch4/Trejo#readme",
   "description": "",
   "devDependencies": {
     "jest": "24.9.0",
-    "nodemon": "1.19.4"
+    "nodemon": "1.19.4",
+    "standard": "14.3.1"
   },
   "dependencies": {
     "axios": "^0.19.0"
