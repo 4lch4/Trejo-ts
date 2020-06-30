@@ -37,7 +37,7 @@
   "homepage": "https://github.com/4lch4/Trejo#readme",
   "description": "",
   "devDependencies": {
-    "jest": "24.9.0",
+    "jest": "26.1.0",
     "nodemon": "1.19.4",
     "standard": "14.3.1"
   },
